@@ -1,7 +1,9 @@
 package com.atguigu.shardingjdbc;
 
 import com.atguigu.shardingjdbc.entity.Course;
+import com.atguigu.shardingjdbc.entity.User;
 import com.atguigu.shardingjdbc.mapper.CourseMapper;
+import com.atguigu.shardingjdbc.mapper.UserMapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,9 @@ class ShardingJdbcDemoApplicationTests {
 
     @Autowired
     private CourseMapper courseMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     //===========水平分表=============================================
     //添加
@@ -44,11 +49,24 @@ class ShardingJdbcDemoApplicationTests {
             courseMapper.insert(course);
         }
     }
-
     @Test
     void selectCourseDb() {
         Course course = courseMapper.selectOne(new QueryWrapper<Course>().eq("cid",480137797060001793L)
                 .eq("user_id",0L));
         System.out.println(course);
+    }
+
+    //===========垂直分库=============================================
+    @Test
+    void addUserDb() {
+        User user = new User();
+        user.setUsername("aaa");
+        user.setUstatus("a");
+        userMapper.insert(user);
+    }
+    @Test
+    void selectUserDb() {
+        User user = userMapper.selectOne(new QueryWrapper<User>().eq("user_id",480485679839576065L));
+        System.out.println(user);
     }
 }
