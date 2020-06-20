@@ -64,8 +64,8 @@ class ShardingJdbcDemoApplicationTests {
     @Test
     void addUserDb() {
         User user = new User();
-        user.setUsername("aaa");
-        user.setUstatus("a");
+        user.setUsername("bbb");
+        user.setUstatus("b");
         userMapper.insert(user);
     }
     @Test
